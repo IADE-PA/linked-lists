@@ -320,13 +320,13 @@ void test_list_filter() {
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_list_is_empty);
-    // RUN_TEST(test_list_size);
+    RUN_TEST(test_list_size);
     // RUN_TEST(test_list_get_first);
-    // RUN_TEST(test_list_get_last);
+    RUN_TEST(test_list_get_last);
     // RUN_TEST(test_list_get);
     // RUN_TEST(test_list_find);
     // RUN_TEST(test_list_insert_first);
-    // RUN_TEST(test_list_insert_last);
+    RUN_TEST(test_list_insert_last);
     // RUN_TEST(test_list_insert);
     // RUN_TEST(test_list_remove_first);
     // RUN_TEST(test_list_remove_last);
