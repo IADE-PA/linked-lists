@@ -75,7 +75,10 @@ void* list_get_first(List list) {
  * @return void* The last element of the list.
  */
 void* list_get_last(List list) {
-    return NULL;
+    if(list_is_empty(list)){
+        return NULL;
+    }
+    return list->tail->element;
 }
 
 /**
