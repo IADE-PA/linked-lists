@@ -55,7 +55,7 @@ bool list_is_empty(List list) {
  * @return size_t The number of elements in the list.
  */
 size_t list_size(List list) {
-    return NULL;
+    return list->size;
 }
 
 /**
@@ -122,7 +122,16 @@ void list_insert_first(List list, void* element) {
  * @param element The element to insert.
  */
 void list_insert_last(List list, void* element) {
-    return NULL;
+    Node node = malloc(sizeof(struct Node_));
+    node->element = element;
+    node->next = NULL;
+    if (list_is_empty(list)) {
+        list->head = node;
+    } else {
+        list->tail->next = node;
+    }
+    list->tail = node;
+    list->size++;
 }
 
 /**
