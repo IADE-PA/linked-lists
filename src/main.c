@@ -10,6 +10,7 @@ void test_list_with_stack_values() {
     int x = *(int*)list_get_last(list);
     printf("%d\n", x);
     // teste em origin
+    // Novidades!
     list_destroy(list, NULL);
 }
 
