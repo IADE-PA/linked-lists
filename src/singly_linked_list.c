@@ -35,7 +35,16 @@ List list_create() {
  * @param free_element The function to free the elements of the list.
  */
 void list_destroy(List list, void (*free_element)(void*)) {
-    return NULL;
+    Node node = list->head;
+    while (node != NULL) {
+        if(free_element != NULL) {
+            free_element(node->element);
+        }
+        Node previous = node;
+        node = node->next;
+        free(previous);
+    }
+    free(list);
 }
 
 /**
