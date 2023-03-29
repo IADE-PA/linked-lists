@@ -325,7 +325,18 @@ int list_remove_duplicates(List list, bool (*equal_element)(void*, void*), void 
  * @return List The resulting from the join of two lists.
  */
 List list_join(List list1, List list2) {
-    return NULL;
+    List result = list_create();
+    Node node = list1->head;
+    while(node != NULL) {
+        list_insert_last(result, node->element);
+        node = node->next;
+    }
+    node = list2->head;
+    while(node != NULL) {
+        list_insert_last(result, node->element);
+        node = node->next;
+    }
+    return result;
 }
 
 /**
