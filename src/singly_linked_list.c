@@ -13,6 +13,13 @@ struct List_ {
     int size;
 };
 
+Node create_node(void* element, Node next) {
+    Node node = malloc(sizeof(struct Node_));
+    node->element = element;
+    node->next = next;
+    return node;
+}
+
 /**
  * @brief Creates a new list.
  *
@@ -37,7 +44,7 @@ List list_create() {
 void list_destroy(List list, void (*free_element)(void*)) {
     Node node = list->head;
     while (node != NULL) {
-        if(free_element != NULL) {
+        if (free_element != NULL) {
             free_element(node->element);
         }
         Node previous = node;
@@ -75,7 +82,7 @@ size_t list_size(List list) {
  * @return void* The first element of the list.
  */
 void* list_get_first(List list) {
-    if(list->head != NULL) {
+    if (list->head != NULL) {
         return list->head->element;
     }
     return NULL;
@@ -104,18 +111,18 @@ void* list_get_last(List list) {
  * @return void* The element at the specified position in the list.
  */
 void* list_get(List list, int position) {
-    if(position >= list_size(list)) {
+    if (position >= list_size(list)) {
         return NULL;
     }
-    if(position == list_size(list)-1) {
+    if (position == list_size(list) - 1) {
         return list->tail->element;
     }
-    if(position == 0){
+    if (position == 0) {
         return list->head->element;
     }
     int idx = 1;
     Node node = list->head->next;
-    while(idx != position) {
+    while (idx != position) {
         idx++;
         node = node->next;
     }
@@ -143,7 +150,12 @@ int list_find(List list, bool (*equal)(void*, void*), void* element) {
  * @param element The element to insert.
  */
 void list_insert_first(List list, void* element) {
-    return NULL;
+    Node node = create_node(element, list->head);
+    if(list_is_empty(list)) {
+        list->tail = node;
+    }
+    list->head = node;
+    list->size++;
 }
 
 /**
@@ -176,10 +188,30 @@ void list_insert_last(List list, void* element) {
  * @param position The position at which to insert the specified element.
  */
 void list_insert(List list, void* element, int position) {
-    return NULL;
+    if( position < 0 || position > list_size(list)){
+        return NULL;
+    }
+    if (position == 0) {
+        list_insert_first(list, element);
+    }
+    else if(position == list_size(list)) {
+        list_insert_last(list, element);
+    }
+    else {
+        Node node = list->head;
+        int idx = 0;
+        while (idx != position - 1) {
+            node = node->next;
+            idx++;
+        }
+        Node new_node = create_node(element, node->next);
+        node->next = new_node;
+        list->size++;
+    }
 }
 
 /**
+
  * @brief Removes and returns the element at the first position in the list.
  *
  * @param list The linked list.

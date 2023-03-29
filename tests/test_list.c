@@ -132,16 +132,16 @@ void test_list_insert_last() {
 }
 
 void test_list_insert() {
-    list_insert(list, &numbers[0], 10);
+    list_insert(list, &numbers[0], 10); // não insere
     TEST_ASSERT_EQUAL(0, list_size(list));
     TEST_ASSERT_NULL(list_get_first(list));
     TEST_ASSERT_NULL(list_get_last(list));
     TEST_ASSERT_EQUAL(0, list_size(list));
-    list_insert(list, &numbers[0], 0);
+    list_insert(list, &numbers[0], 0); // [1]
     TEST_ASSERT_EQUAL(1, list_size(list));
     TEST_ASSERT_EQUAL(&numbers[0], list_get_first(list));
-    insert_strings(1, 3);
-    list_insert(list, &numbers[1], 4);
+    insert_strings(1, 3); // [1]->["one"]->["two"]->["three"]
+    list_insert(list, &numbers[1], 4); // [1]->["one"]->["two"]->["three"]->[2]
     TEST_ASSERT_EQUAL(5, list_size(list));
     TEST_ASSERT_EQUAL(&numbers[1], list_get_last(list));
     list_insert(list, &numbers[2], 3);
