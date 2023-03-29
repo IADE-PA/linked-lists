@@ -75,6 +75,9 @@ size_t list_size(List list) {
  * @return void* The first element of the list.
  */
 void* list_get_first(List list) {
+    if(list->head != NULL) {
+        return list->head->element;
+    }
     return NULL;
 }
 
@@ -101,7 +104,22 @@ void* list_get_last(List list) {
  * @return void* The element at the specified position in the list.
  */
 void* list_get(List list, int position) {
-    return NULL;
+    if(position >= list_size(list)) {
+        return NULL;
+    }
+    if(position == list_size(list)-1) {
+        return list->tail->element;
+    }
+    if(position == 0){
+        return list->head->element;
+    }
+    int idx = 1;
+    Node node = list->head->next;
+    while(idx != position) {
+        idx++;
+        node = node->next;
+    }
+    return node->element;
 }
 
 /**
