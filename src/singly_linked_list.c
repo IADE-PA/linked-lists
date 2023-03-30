@@ -74,7 +74,10 @@ size_t list_size(List list) {
  * @return void* The first element of the list.
  */
 void* list_get_first(List list) {
-    return NULL;
+    if(list_is_empty(list)) {
+        return NULL;
+    }
+    return list->head->element;
 }
 
 /**
@@ -124,7 +127,15 @@ int list_find(List list, bool (*equal)(void*, void*), void* element) {
  * @param element The element to insert.
  */
 void list_insert_first(List list, void* element) {
-    return NULL;
+    Node node = malloc(sizeof(struct Node_));
+    node->element = element;
+    node->next = list->head;
+    list->head = node;
+    if(list_is_empty(list)) {
+        list->tail = list->head;
+        // tail = node;
+    }
+    list->size++;
 }
 
 /**
