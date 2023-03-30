@@ -117,7 +117,16 @@ void* list_get(List list, int position) {
  * @return int The position in the list of the first occurrence of the specified element, or -1 if the specified element does not occur in the list.
  */
 int list_find(List list, bool (*equal)(void*, void*), void* element) {
-    return NULL;
+    Node node = list->head;
+    int x = 0;
+    while(node != NULL){
+        if(equal(node->element, element)){
+            return x;
+        }
+        node = node->next;
+        x++;
+    }
+    return -1;
 }
 
 /**
