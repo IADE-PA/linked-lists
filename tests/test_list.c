@@ -329,7 +329,7 @@ int main(void) {
     RUN_TEST(test_list_insert_last);
     // RUN_TEST(test_list_insert);
     // RUN_TEST(test_list_remove_first);
-    // RUN_TEST(test_list_remove_last);
+    RUN_TEST(test_list_remove_last);
     // RUN_TEST(test_list_remove);
     // RUN_TEST(test_list_make_empty);
     // RUN_TEST(test_list_to_array);

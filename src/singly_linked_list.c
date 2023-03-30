@@ -36,9 +36,9 @@ List list_create() {
  */
 void list_destroy(List list, void (*free_element)(void*)) {
     Node node = list->head;
-    while(node != NULL) {
+    while (node != NULL) {
         Node next = node->next;
-        if(free_element != NULL) {
+        if (free_element != NULL) {
             free_element(node->element);
         }
         free(node);
@@ -74,7 +74,7 @@ size_t list_size(List list) {
  * @return void* The first element of the list.
  */
 void* list_get_first(List list) {
-    if(list_is_empty(list)) {
+    if (list_is_empty(list)) {
         return NULL;
     }
     return list->head->element;
@@ -87,7 +87,7 @@ void* list_get_first(List list) {
  * @return void* The last element of the list.
  */
 void* list_get_last(List list) {
-    if(list_is_empty(list)){
+    if (list_is_empty(list)) {
         return NULL;
     }
     return list->tail->element;
@@ -119,8 +119,8 @@ void* list_get(List list, int position) {
 int list_find(List list, bool (*equal)(void*, void*), void* element) {
     Node node = list->head;
     int x = 0;
-    while(node != NULL){
-        if(equal(node->element, element)){
+    while (node != NULL) {
+        if (equal(node->element, element)) {
             return x;
         }
         node = node->next;
@@ -140,7 +140,7 @@ void list_insert_first(List list, void* element) {
     node->element = element;
     node->next = list->head;
     list->head = node;
-    if(list_is_empty(list)) {
+    if (list_is_empty(list)) {
         list->tail = list->head;
         // tail = node;
     }
@@ -198,7 +198,24 @@ void* list_remove_first(List list) {
  * @return void* The element at the last position in the list.
  */
 void* list_remove_last(List list) {
-    return NULL;
+    if(list_is_empty(list)) {
+        return NULL;
+    }
+    Node node = list->head;
+    Node prev = NULL;
+    while (node->next != NULL) {
+        prev = node;
+        node = node->next;
+    }
+    list->tail = prev;
+    list->size--;
+    if(list_is_empty(list)) {
+        list->head = list->tail;
+    }
+    list->tail->next = NULL;
+    void* element = node->element;
+    free(node);
+    return element;
 }
 
 /**
@@ -274,21 +291,21 @@ int list_remove_duplicates(List list, bool (*equal_element)(void*, void*), void 
     Node node = list->head;
     Node prev = NULL;
     int counter = 0;
-    while(node != NULL) {
-        if(equal_element(node->element, element)) {
+    while (node != NULL) {
+        if (equal_element(node->element, element)) {
             counter++;
-            if(counter > 1) {
+            if (counter > 1) {
                 // Atualizar o prev
                 prev->next = node->next;
-                if(node->next == NULL) { // removing the tail
+                if (node->next == NULL) {  // removing the tail
                     list->tail = prev;
                 }
                 // Remover!
-                if(free_element != NULL) {
+                if (free_element != NULL) {
                     free_element(node->element);
                 }
                 free(node);
-                node = prev->next; 
+                node = prev->next;
             }
         }
         prev = node;
