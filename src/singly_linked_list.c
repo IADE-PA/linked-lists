@@ -271,7 +271,30 @@ int list_remove_all(List list, bool (*equal_element)(void*, void*), void (*free_
  * @return int The number of occurrences on an element.
  */
 int list_remove_duplicates(List list, bool (*equal_element)(void*, void*), void (*free_element)(void*), void* element) {
-    return NULL;
+    Node node = list->head;
+    Node prev = NULL;
+    int counter = 0;
+    while(node != NULL) {
+        if(equal_element(node->element, element)) {
+            counter++;
+            if(counter > 1) {
+                // Atualizar o prev
+                prev->next = node->next;
+                if(node->next == NULL) { // removing the tail
+                    list->tail = prev;
+                }
+                // Remover!
+                if(free_element != NULL) {
+                    free_element(node->element);
+                }
+                free(node);
+                node = prev->next; 
+            }
+        }
+        prev = node;
+        node = node->next;
+    }
+    return counter;
 }
 
 /**

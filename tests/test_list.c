@@ -337,7 +337,7 @@ int main(void) {
     // RUN_TEST(test_list_count_all);
     // RUN_TEST(test_list_remove_all);
     // RUN_TEST(test_list_remove_all_custom_free);
-    // RUN_TEST(test_list_remove_duplicates);
+    RUN_TEST(test_list_remove_duplicates);
     // RUN_TEST(test_list_join);
     // RUN_TEST(test_list_get_sublist_between);
     // RUN_TEST(test_list_get_sublist);
